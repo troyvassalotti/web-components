@@ -1,0 +1,31 @@
+{
+  "type": "module",
+  "name": "web-components",
+  "version": "1.0.0",
+  "description": "Web Components I've made",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --write .",
+    "build": "npm run format && gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/troyvassalotti/web-components.git"
+  },
+  "keywords": [
+    "web components"
+  ],
+  "author": "Troy Vassalotti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/troyvassalotti/web-components/issues"
+  },
+  "homepage": "https://github.com/troyvassalotti/web-components#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-prettier": "^4.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-terser": "^2.1.0",
+    "prettier": "^2.6.1"
+  }
+}
