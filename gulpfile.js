@@ -5,7 +5,8 @@
 
 import gulp from "gulp"
 import terser from "gulp-terser"
-import rename from "gulp-rename"
+// import rename from "gulp-rename"
+// import prettier from "gulp-prettier"
 
 const paths = {
   components: {
@@ -19,15 +20,17 @@ const paths = {
  * @returns {*} Processed JS in destination folder
  */
 export function js() {
-  return gulp
-    .src(paths.components.src)
-    .pipe(terser())
-    .pipe(
-      rename({
-        suffix: ".min",
-      })
-    )
-    .pipe(gulp.dest(paths.components.dest))
+  return (
+    gulp
+      .src(paths.components.src)
+      .pipe(terser())
+      // .pipe(
+      //   rename({
+      //     suffix: ".min",
+      //   })
+      // )
+      .pipe(gulp.dest(paths.components.dest))
+  )
 }
 
 const build = gulp.series(js)
