@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "name": "web-components",
+  "name": "@troyv/web-components",
   "version": "1.0.0",
   "description": "Web Components I've made",
   "main": "index.js",
