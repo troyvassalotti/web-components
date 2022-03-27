@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@troyv/web-components",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Web Components I've made",
   "main": "index.js",
   "scripts": {
