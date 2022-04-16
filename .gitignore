@@ -1,5 +1,6 @@
 # Node/npm
 node_modules
+*.tgz
 
 # Output Directories
 dist
