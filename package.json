@@ -3,12 +3,9 @@
   "name": "@troyv/web-components",
   "version": "1.2.0",
   "description": "Web Components I've made",
-  "main": "dist/web-components.es.js",
-  "exports": {
-    ".": "./dist/web-components.es.js"
-  },
+  "main": "src/index.js",
   "files": [
-    "dist/web-components.es.js"
+    "dist"
   ],
   "scripts": {
     "dev": "vite",
