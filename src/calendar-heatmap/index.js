@@ -2,12 +2,12 @@
  * @file Creates a Heatmap web component
  * Accepts data in the form of JSON as [{"date": "YYYY-MM-DD", "time": "00:00"}]
  */
-import * as d3 from "https://cdn.skypack.dev/d3@7.3.0"
+import * as d3 from "https://cdn.skypack.dev/d3@7.3.0";
 
-class CalendarHeatmap extends HTMLElement {
+export class CalendarHeatmap extends HTMLElement {
   constructor() {
-    super()
-    this.attachShadow({ mode: "open" })
+    super();
+    this.attachShadow({ mode: "open" });
 
     this.template = `
         <style>
@@ -22,7 +22,7 @@ class CalendarHeatmap extends HTMLElement {
         </style>
     
         <div id="heatmap" part="heatmap"></div>
-        `
+        `;
   }
 
   /**
@@ -30,7 +30,7 @@ class CalendarHeatmap extends HTMLElement {
    * @returns {string}
    */
   get dataSrc() {
-    return this.dataset.src
+    return this.dataset.src;
   }
 
   /**
@@ -38,9 +38,9 @@ class CalendarHeatmap extends HTMLElement {
    * @returns {Promise<Map<unknown, unknown>>}
    */
   async getData() {
-    const response = await fetch(this.dataSrc)
-    const json = await response.json()
-    return new Map(json.map((value) => [value["date"], value["time"]]))
+    const response = await fetch(this.dataSrc);
+    const json = await response.json();
+    return new Map(json.map((value) => [value["date"], value["time"]]));
   }
 
   /**
@@ -49,41 +49,41 @@ class CalendarHeatmap extends HTMLElement {
    * @returns {Promise<{start: number, end: number}>}
    */
   async getDates(data) {
-    const all = []
+    const all = [];
     for (const [key, value] of data) {
-      all.push(parseInt(key))
+      all.push(parseInt(key));
     }
 
-    const min = Math.min.apply(null, all)
-    const max = Math.max.apply(null, all)
+    const min = Math.min.apply(null, all);
+    const max = Math.max.apply(null, all);
 
     return {
       start: min,
       end: max + 1,
-    }
+    };
   }
 
   async connectedCallback() {
-    const { shadowRoot } = this
-    shadowRoot.innerHTML = this.template
+    const { shadowRoot } = this;
+    shadowRoot.innerHTML = this.template;
 
-    const dataset = await this.getData()
-    const dates = await this.getDates(dataset)
+    const dataset = await this.getData();
+    const dates = await this.getDates(dataset);
 
     // The svg are made responsive within setting the width and height attr to 100%
-    const width = 960
-    const height = 136
-    const cellSize = 17
-    const mainStrokeColor = "currentColor"
-    const defaultStrokeWidth = "0.1px"
-    const boldedStrokeWidth = "1px"
-    const outerBorderWidth = "1.5px"
+    const width = 960;
+    const height = 136;
+    const cellSize = 17;
+    const mainStrokeColor = "currentColor";
+    const defaultStrokeWidth = "0.1px";
+    const boldedStrokeWidth = "1px";
+    const outerBorderWidth = "1.5px";
 
     // Create the color scale
     const color = d3
       .scaleQuantize()
       .domain([0, 23])
-      .range(["#b1deff", "#54b1f5", "#0264a9", "#002b4c"])
+      .range(["#b1deff", "#54b1f5", "#0264a9", "#002b4c"]);
 
     // Create the overall SVG element
     const svg = d3
@@ -97,7 +97,7 @@ class CalendarHeatmap extends HTMLElement {
       .attr("height", "100%")
       .attr("class", "calendar")
       .append("g")
-      .attr("transform", `translate(${(width - cellSize * 53) / 2}, ${height - cellSize * 7 - 1})`)
+      .attr("transform", `translate(${(width - cellSize * 53) / 2}, ${height - cellSize * 7 - 1})`);
 
     svg
       .append("g")
@@ -114,25 +114,25 @@ class CalendarHeatmap extends HTMLElement {
       .attr("x", (d) => d3.timeWeek.count(d3.timeYear(d), d) * cellSize)
       .attr("y", (d) => d.getDay() * cellSize)
       .datum(d3.timeFormat("%Y-%m-%d"))
-      .attr("fill", (d) => color(parseInt(dataset.get(d))))
+      .attr("fill", (d) => color(parseInt(dataset.get(d))));
 
-    const Days = shadowRoot.querySelectorAll(".day")
+    const Days = shadowRoot.querySelectorAll(".day");
     Days.forEach((day) => {
       if (day.hasAttribute("fill")) {
         d3.select(day)
           .on("mouseover", function () {
-            d3.select(this).attr("stroke-width", boldedStrokeWidth)
+            d3.select(this).attr("stroke-width", boldedStrokeWidth);
           })
           .on("mouseout", function () {
-            d3.select(this).attr("stroke-width", defaultStrokeWidth)
+            d3.select(this).attr("stroke-width", defaultStrokeWidth);
           })
           .append("title")
           .text(
             (d) => `Date: ${d}
 Time: ${dataset.get(d)}`
-          )
+          );
       }
-    })
+    });
 
     svg
       .append("text")
@@ -140,7 +140,7 @@ Time: ${dataset.get(d)}`
       .attr("font-size", "1rem")
       .attr("text-anchor", "middle")
       .attr("fill", mainStrokeColor)
-      .text((d) => d)
+      .text((d) => d);
 
     // Create the borders between the months
     svg
@@ -158,11 +158,11 @@ Time: ${dataset.get(d)}`
           d0 = d.getDay(),
           w0 = d3.timeWeek.count(d3.timeYear(d), d),
           d1 = t1.getDay(),
-          w1 = d3.timeWeek.count(d3.timeYear(t1), t1)
+          w1 = d3.timeWeek.count(d3.timeYear(t1), t1);
         return `M${
           (w0 + 1) * cellSize
-        }, ${d0 * cellSize}H${w0 * cellSize}V${7 * cellSize}H${w1 * cellSize}V${(d1 + 1) * cellSize}H${(w1 + 1) * cellSize}V0H${(w0 + 1) * cellSize}Z`
-      })
+        }, ${d0 * cellSize}H${w0 * cellSize}V${7 * cellSize}H${w1 * cellSize}V${(d1 + 1) * cellSize}H${(w1 + 1) * cellSize}V0H${(w0 + 1) * cellSize}Z`;
+      });
 
     const axisScale = d3
       .scaleBand()
@@ -180,11 +180,16 @@ Time: ${dataset.get(d)}`
         "November",
         "December",
       ])
-      .range([0, width - 50])
+      .range([0, width - 50]);
 
-    const xAxis = d3.axisTop(axisScale).tickSize(0).tickPadding("3")
-    svg.append("g").attr("id", "x-axis").call(xAxis).selectAll("path").attr("stroke", "transparent")
+    const xAxis = d3.axisTop(axisScale).tickSize(0).tickPadding("3");
+    svg
+      .append("g")
+      .attr("id", "x-axis")
+      .call(xAxis)
+      .selectAll("path")
+      .attr("stroke", "transparent");
   }
 }
 
-customElements.define("calendar-heatmap", CalendarHeatmap)
+customElements.define("calendar-heatmap", CalendarHeatmap);

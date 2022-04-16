@@ -3,10 +3,18 @@
   "name": "@troyv/web-components",
   "version": "1.0.1",
   "description": "Web Components I've made",
-  "main": "index.js",
+  "main": "dist/web-components.es.js",
+  "exports": {
+    ".": "./dist/web-components.es.js"
+  },
+  "files": [
+    "dist/web-components.es.js"
+  ],
   "scripts": {
-    "format": "prettier --write .",
-    "build": "npm run format && gulp"
+    "dev": "vite",
+    "build": "npm run prettier::format && vite build",
+    "prettier::lint": "prettier --check .",
+    "prettier::format": "prettier --write ."
   },
   "repository": {
     "type": "git",
@@ -22,10 +30,7 @@
   },
   "homepage": "https://github.com/troyvassalotti/web-components#readme",
   "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-prettier": "^4.0.0",
-    "gulp-rename": "^2.0.0",
-    "gulp-terser": "^2.1.0",
-    "prettier": "^2.6.1"
+    "prettier": "^2.6.2",
+    "vite": "^2.9.5"
   }
 }

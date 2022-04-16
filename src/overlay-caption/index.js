@@ -2,12 +2,12 @@
  * @file Creates a web component for images with captions that appear on hover as an overlay
  */
 
-class OverlayCaption extends HTMLElement {
+export class OverlayCaption extends HTMLElement {
   constructor() {
-    super()
+    super();
 
     /** Set a default for the caption's URL */
-    const url = this.dataset.href || "#"
+    const url = this.dataset.href || "#";
 
     const template = `
         <style>
@@ -81,10 +81,10 @@ class OverlayCaption extends HTMLElement {
               </figcaption>
             </figure>
           </a>
-          `
+          `;
 
-    const shadowRoot = this.attachShadow({ mode: "open" })
-    shadowRoot.innerHTML = template
+    const shadowRoot = this.attachShadow({ mode: "open" });
+    shadowRoot.innerHTML = template;
   }
 
   connectedCallback() {
@@ -92,9 +92,11 @@ class OverlayCaption extends HTMLElement {
      * Check to see if the slotted image has alt text and log an error if not
      * @type {Element}
      */
-    const heyAddAltText = this.querySelector("img:not([alt])")
-    heyAddAltText ? ((heyAddAltText.alt = ""), console.error("Add alt text to your images")) : false
+    const heyAddAltText = this.querySelector("img:not([alt])");
+    heyAddAltText
+      ? ((heyAddAltText.alt = ""), console.error("Add alt text to your images"))
+      : false;
   }
 }
 
-customElements.define("overlay-caption", OverlayCaption)
+customElements.define("overlay-caption", OverlayCaption);

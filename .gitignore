@@ -1,2 +1,9 @@
+# Node/npm
 node_modules
+
+# Output Directories
+dist
+
+# IDE Settings
 .idea
+.vscode

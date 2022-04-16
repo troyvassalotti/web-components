@@ -1,4 +1,9 @@
+# Output Directories
+dist
+
+# Node/npm
 node_modules
+
+# File Types
 *.md
 *.json
-dist

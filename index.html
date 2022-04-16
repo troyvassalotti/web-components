@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Web Components</title>
+    <script type="module" src="/src/index.js"></script>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Web Components</h1>
+      <hr />
+      <div class="overlayCaption">
+        <h2>Overlay Caption</h2>
+        <overlay-caption>
+          <img
+            slot="image"
+            src="https://screenshot.troyv.dev/https%3A%2F%2Fhelloworldvue.netlify.app%2F/opengraph"
+            alt="Hello WorldVue screenshot"
+            decoding="async"
+            loading="lazy"
+            width="600"
+            height="315" />
+          <h3 slot="caption">Hello WorldVue</h3>
+        </overlay-caption>
+      </div>
+      <hr />
+      <div class="lightBox">
+        <h2>Light Box</h2>
+        <img
+          is="light-box"
+          src="https://screenshot.troyv.dev/https%3A%2F%2Fwww.thisisa.band/opengraph"
+          alt="This is a Band"
+          class="has-box-shadow"
+          decoding="async"
+          width="1200"
+          height="630" />
+      </div>
+      <hr />
+      <div class="calendarHeatmap">
+        <h2>Calendar Heatmap</h2>
+        <calendar-heatmap
+          data-src="https://d33wubrfki0l68.cloudfront.net/012ecb297ebf0a9ae7e16f118a88e74b67ba7271/4b214/assets/js/migraines-2020.json"></calendar-heatmap>
+      </div>
+    </main>
+  </body>
+</html>
