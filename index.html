@@ -6,8 +6,18 @@
     <title>Web Components</title>
     <script type="module" src="/src/index.js"></script>
     <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      *::after,
+      *::before {
+        box-sizing: inherit;
+      }
+
       body {
         font-family: system-ui, sans-serif;
+        margin: 0;
       }
     </style>
   </head>
@@ -33,14 +43,21 @@
       <hr />
       <div class="lightBox">
         <h2>Light Box</h2>
-        <img
-          is="light-box"
+        <light-box
           src="https://screenshot.troyv.dev/https%3A%2F%2Fwww.thisisa.band/opengraph"
           alt="This is a Band"
-          class="has-box-shadow"
           decoding="async"
           width="1200"
-          height="630" />
+          height="630"
+          lightbox="https://screenshot.troyv.dev/https%3A%2F%2Fhelloworldvue.netlify.app%2F/opengraph"></light-box>
+        <light-box
+          src="https://via.placeholder.com/500"
+          lightbox="https://via.placeholder.com/1000"
+          alt=""
+          width="500"
+          height="500"
+          decoding="async"
+          loading="lazy"></light-box>
       </div>
       <hr />
       <div class="calendarHeatmap">

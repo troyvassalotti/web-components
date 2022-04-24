@@ -1,51 +1,92 @@
 /**
  * @file Creates a LightBox Web Component
  */
-export class LightBox extends HTMLImageElement {
-  constructor() {
-    super();
 
-    /**
-     * Defaults to the base image if no data-lbsrc is provided
-     * @type {string}
-     */
-    const lightboxImage = this.dataset.lbsrc ? this.dataset.lbsrc : this.src;
+import { html, css, LitElement } from "lit";
 
-    const lb = document.createElement("div");
-    const styles = {
-      backgroundColor: `rgba(0, 0, 0, 0.7)`,
-      blockSize: "100vh",
-      cursor: "zoom-out",
-      display: "none",
-      inlineSize: "100%",
-      inset: 0,
-      position: "absolute",
-    };
-
-    const lbimg = document.createElement("img");
-    lbimg.src = lightboxImage;
-    lb.appendChild(lbimg);
-
-    /**
-     * Iterate over all the props in the styles variable to assign inline styles to the lightbox
-     */
-    for (const property in styles) {
-      lb.style[property] = styles[property];
+export class LightBox extends LitElement {
+  static styles = css`
+    * {
+      box-sizing: border-box;
     }
 
-    lb.addEventListener("click", function () {
-      this.style.display = "none";
-    });
+    *::after,
+    *::before {
+      box-sizing: inherit;
+    }
 
-    this.style.cursor = "zoom-in";
-    this.parentNode.insertBefore(lb, this);
+    img {
+      max-inline-size: 100%;
+    }
 
-    // Center the thing
-    this.addEventListener("click", function () {
-      lb.style.display = "grid";
-      lb.style.placeItems = "center";
-    });
+    .lightbox__original-image {
+      cursor: zoom-in;
+    }
+
+    .lightbox__shadow {
+      background-color: rgba(0, 0, 0, 0.7);
+      block-size: 100vh;
+      cursor: zoom-out;
+      display: none;
+      inline-size: 100%;
+      inset: 0;
+      overflow: auto;
+      padding: 1rem;
+      place-items: center;
+      position: fixed;
+    }
+  `;
+
+  static properties = {
+    alt: { type: String },
+    decoding: { type: String },
+    height: { type: Number },
+    lightbox: { type: String },
+    loading: { type: String },
+    src: { type: String },
+    width: { type: Number },
+  };
+
+  get _lightboxShadow() {
+    return this.renderRoot?.querySelector(".lightbox__shadow") ?? null;
+  }
+
+  constructor() {
+    super();
+    this.alt = "";
+    this.decoding = "async";
+    this.height = "";
+    this.loading = "lazy";
+    this.src = "#";
+    this.width = "";
+  }
+
+  _openLightbox() {
+    this._lightboxShadow.style.display = "grid";
+    document.body.style.overflow = "hidden";
+  }
+
+  _closeLightbox() {
+    this._lightboxShadow.style.display = "none";
+    document.body.style.overflow = "auto";
+  }
+
+  render() {
+    return html`
+      <img
+        class="lightbox__original-image"
+        alt=${this.alt}
+        decoding=${this.decoding}
+        height=${this.height}
+        loading=${this.loading}
+        src=${this.src}
+        width=${this.width}
+        @click=${this._openLightbox} />
+      <div class="lightbox__shadow" @click=${this._closeLightbox}>
+        <img class="lightbox__created-image" src=${this.lightbox ? this.lightbox : this.src} />
+      </div>
+    `;
   }
 }
 
-customElements.define("light-box", LightBox, { extends: "img" });
+customElements.define("light-box", LightBox);

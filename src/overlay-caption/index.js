@@ -29,6 +29,11 @@ export class OverlayCaption extends LitElement {
       max-inline-size: 100%;
     }
 
+    /* part="co-container" */
+    .caption-container {
+      display: inline-block;
+    }
+
     /* part="co-figure" */
     .caption-figure {
       filter: drop-shadow(2px 4px 6px hsl(0 0% 50%));
@@ -93,7 +98,7 @@ export class OverlayCaption extends LitElement {
             loading="lazy" />
         </slot>
         <figcaption part="co-caption" class="caption">
-          <slot name="caption"></slot>
+          <slot name="caption"><span>Your caption goes here</span></slot>
         </figcaption>
       </figure>
     </a>`;
