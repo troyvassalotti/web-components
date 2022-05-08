@@ -2,7 +2,7 @@
  * @file Creates a LightBox Web Component
  */
 
-import { LitElement, css, html, nothing } from "https://cdn.skypack.dev/lit@2.2.3";
+import { LitElement, css, html } from "https://cdn.skypack.dev/lit@2.2.3";
 
 export class LightBox extends LitElement {
   static get styles() {
