@@ -11,12 +11,12 @@ export default defineConfig({
         "overlay-caption": "src/overlay-caption/index",
         "light-box": "src/light-box/index",
         "calendar-heatmap": "src/calendar-heatmap/index",
+        "cloudy-sky": "src/cloudy-sky/index",
       },
       output: {
         entryFileNames: "[name].js",
         dir: "dist",
       },
-      external: [/^lit/, /^d3/],
     },
   },
 });

@@ -19,6 +19,17 @@
         font-family: system-ui, sans-serif;
         margin: 0;
       }
+
+      .custom {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr 1fr;
+        padding: 2rem;
+      }
+
+      ::part(hillside) {
+        fill: purple;
+      }
     </style>
   </head>
   <body>
@@ -64,6 +75,24 @@
         <h2>Calendar Heatmap</h2>
         <calendar-heatmap
           data-src="https://d33wubrfki0l68.cloudfront.net/012ecb297ebf0a9ae7e16f118a88e74b67ba7271/4b214/assets/js/migraines-2020.json"></calendar-heatmap>
+      </div>
+      <hr />
+      <div class="cloudySky">
+        <h2>Cloudy Sky</h2>
+        <cloudy-sky buttonsize="1.5rem" hillside>
+          <div class="custom">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto asperiores
+              aspernatur distinctio eum id impedit, iusto maiores molestiae molestias nihil nostrum,
+              obcaecati omnis quia ratione recusandae totam vel vitae voluptate.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto asperiores
+              aspernatur distinctio eum id impedit, iusto maiores molestiae molestias nihil nostrum,
+              obcaecati omnis quia ratione recusandae totam vel vitae voluptate.
+            </p>
+          </div>
+        </cloudy-sky>
       </div>
     </main>
   </body>
