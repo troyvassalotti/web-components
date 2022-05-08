@@ -12,6 +12,7 @@ export default defineConfig({
         "light-box": "src/light-box/index",
         "calendar-heatmap": "src/calendar-heatmap/index",
         "cloudy-sky": "src/cloudy-sky/index",
+        "lightbox-carousel": "src/lightbox-carousel/index",
       },
       output: {
         entryFileNames: "[name].js",

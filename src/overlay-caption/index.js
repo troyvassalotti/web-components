@@ -7,8 +7,7 @@ import { LitElement, css, html } from "https://cdn.skypack.dev/lit@2.2.3";
 export class OverlayCaption extends LitElement {
   static get styles() {
     return css`
-      *,
-      ::slotted(*) {
+      * {
         box-sizing: border-box;
       }
 
@@ -102,7 +101,7 @@ export class OverlayCaption extends LitElement {
             loading="lazy" />
         </slot>
         <figcaption part="co-caption" class="caption">
-          <slot name="caption"><span>Your caption goes here</span></slot>
+          <span><slot>Your caption goes here</slot></span>
         </figcaption>
       </figure>
     </a>`;

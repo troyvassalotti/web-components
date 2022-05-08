@@ -59,12 +59,9 @@ export class LightBox extends LitElement {
       loading: { type: String },
       src: { type: String },
       width: { type: Number },
+      isOpen: { type: Boolean },
       _open: { state: true },
     };
-  }
-
-  get _lightboxShadow() {
-    return this.renderRoot?.querySelector(".lightbox__shadow") ?? null;
   }
 
   constructor() {
@@ -75,32 +72,49 @@ export class LightBox extends LitElement {
     this.loading = "lazy";
     this.src = "#";
     this.width = "";
+    this.isOpen = false;
     this._open = false;
+  }
+
+  get _lightboxShadow() {
+    return this.renderRoot?.querySelector(".lightbox__shadow") ?? null;
   }
 
   get _openClass() {
     return this._open ? "open" : "closed";
   }
 
-  _openLightbox() {
+  async _openLightbox() {
     this._open = true;
+    this.removeAttribute("closed");
+    this.setAttribute("open", "");
     document.body.style.overflow = "hidden";
+
+    await this.updateComplete;
+    document.addEventListener("keydown", this._handleEscape);
+    this.dispatchEvent(new CustomEvent("LightboxOpened", { bubbles: true, composed: false }));
   }
 
-  _closeLightbox() {
+  async _closeLightbox() {
     this._open = false;
+    this.removeAttribute("open");
+    this.setAttribute("closed", "");
     document.body.style.overflow = "auto";
+
+    await this.updateComplete;
+    document.removeEventListener("keydown", this._handleEscape);
+    this.dispatchEvent(new CustomEvent("LightboxClosed", { bubbles: true, composed: false }));
   }
 
   _handleEscape = (e) => {
-    if ((e.key === "Escape" || e.key === "Esc")) {
-      this._closeLightbox()
+    if (e.key === "Escape" || e.key === "Esc") {
+      this._closeLightbox();
     }
-  }
+  };
 
   connectedCallback() {
-    super.connectedCallback()
-    document.addEventListener("keydown", this._handleEscape)
+    super.connectedCallback();
+    this.setAttribute("closed", "");
   }
 
   disconnectedCallback() {
@@ -120,7 +134,10 @@ export class LightBox extends LitElement {
         width=${this.width}
         @click=${this._openLightbox} />
       <div class="lightbox__shadow ${this._openClass}" @click=${this._closeLightbox}>
-        <img class="lightbox__created-image" src=${this.lightbox ? this.lightbox : this.src} alt=${this.alt} />
+        <img
+          class="lightbox__created-image"
+          src=${this.lightbox ? this.lightbox : this.src}
+          alt=${this.alt} />
       </div>
     `;
   }

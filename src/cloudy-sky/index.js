@@ -331,7 +331,7 @@ export class CloudySky extends LitElement {
           observer.unobserve(entry.target);
         }
       });
-    }
+    };
 
     const observer = new IntersectionObserver(_intersectionObserver);
     observer.observe(this);

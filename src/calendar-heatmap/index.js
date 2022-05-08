@@ -11,6 +11,15 @@ export class CalendarHeatmap extends HTMLElement {
 
     this.template = `
         <style>
+        * {
+        box-sizing: border-box;
+      }
+
+      *::after,
+      *::before {
+        box-sizing: inherit;
+      }
+      
           #heatmap {
             padding-block: 1em;
             overflow: auto;
