@@ -16,6 +16,7 @@ export default defineConfig({
         entryFileNames: "[name].js",
         dir: "dist",
       },
+      external: [/^lit/, /^d3/],
     },
   },
 });

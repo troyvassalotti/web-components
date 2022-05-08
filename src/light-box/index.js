@@ -2,50 +2,54 @@
  * @file Creates a LightBox Web Component
  */
 
-import { html, css, LitElement } from "lit";
+import { LitElement, css, html } from "https://cdn.skypack.dev/lit@2.2.3";
 
 export class LightBox extends LitElement {
-  static styles = css`
-    * {
-      box-sizing: border-box;
-    }
+  static get styles() {
+    return css`
+      * {
+        box-sizing: border-box;
+      }
 
-    *::after,
-    *::before {
-      box-sizing: inherit;
-    }
+      *::after,
+      *::before {
+        box-sizing: inherit;
+      }
 
-    img {
-      max-inline-size: 100%;
-    }
+      img {
+        max-inline-size: 100%;
+      }
 
-    .lightbox__original-image {
-      cursor: zoom-in;
-    }
+      .lightbox__original-image {
+        cursor: zoom-in;
+      }
 
-    .lightbox__shadow {
-      background-color: rgba(0, 0, 0, 0.7);
-      block-size: 100vh;
-      cursor: zoom-out;
-      display: none;
-      inline-size: 100%;
-      inset: 0;
-      overflow: auto;
-      padding: 1rem;
-      place-items: center;
-      position: fixed;
-    }
-  `;
+      .lightbox__shadow {
+        background-color: rgba(0, 0, 0, 0.7);
+        block-size: 100vh;
+        cursor: zoom-out;
+        display: none;
+        inline-size: 100%;
+        inset: 0;
+        overflow: auto;
+        padding: 1rem;
+        place-items: center;
+        position: fixed;
+      }
+    `;
+  }
 
-  static properties = {
-    alt: { type: String },
-    decoding: { type: String },
-    height: { type: Number },
-    lightbox: { type: String },
-    loading: { type: String },
-    src: { type: String },
-    width: { type: Number },
-  };
+  static get properties() {
+    return {
+      alt: { type: String },
+      decoding: { type: String },
+      height: { type: Number },
+      lightbox: { type: String },
+      loading: { type: String },
+      src: { type: String },
+      width: { type: Number },
+    };
+  }
 
   get _lightboxShadow() {
     return this.renderRoot?.querySelector(".lightbox__shadow") ?? null;
