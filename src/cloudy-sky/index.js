@@ -314,7 +314,7 @@ export class CloudySky extends LitElement {
 
   constructor() {
     super();
-    this.buttonSize = "1.5rem";
+    this.buttonSize = "24px";
     this.hillside = false;
     this._active = false;
   }
@@ -324,18 +324,17 @@ export class CloudySky extends LitElement {
   }
 
   firstUpdated() {
-    const observer = new IntersectionObserver(_intersectionObserver);
-    const el = this;
-    observer.observe(el);
-
-    function _intersectionObserver(entries) {
+    const _intersectionObserver = (entries) => {
       entries.map((entry) => {
         if (entry.isIntersecting) {
-          el._setClouds();
+          this._setClouds();
           observer.unobserve(entry.target);
         }
       });
     }
+
+    const observer = new IntersectionObserver(_intersectionObserver);
+    observer.observe(this);
   }
 
   render() {

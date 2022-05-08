@@ -2,7 +2,7 @@
  * @file Creates a LightBox Web Component
  */
 
-import { LitElement, css, html } from "https://cdn.skypack.dev/lit@2.2.3";
+import { LitElement, css, html, nothing } from "https://cdn.skypack.dev/lit@2.2.3";
 
 export class LightBox extends LitElement {
   static get styles() {
@@ -29,10 +29,9 @@ export class LightBox extends LitElement {
       }
 
       .lightbox__shadow {
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(0, 0, 0, 0.8);
         block-size: 100vh;
         cursor: zoom-out;
-        display: none;
         inline-size: 100%;
         inset: 0;
         overflow: auto;
@@ -40,6 +39,14 @@ export class LightBox extends LitElement {
         place-items: center;
         position: fixed;
       }
+      
+      .open {
+        display: grid;
+      }
+      
+      .closed {
+        display: none;
+      })
     `;
   }
 
@@ -52,6 +59,7 @@ export class LightBox extends LitElement {
       loading: { type: String },
       src: { type: String },
       width: { type: Number },
+      _open: { state: true },
     };
   }
 
@@ -67,16 +75,37 @@ export class LightBox extends LitElement {
     this.loading = "lazy";
     this.src = "#";
     this.width = "";
+    this._open = false;
+  }
+
+  get _openClass() {
+    return this._open ? "open" : "closed";
   }
 
   _openLightbox() {
-    this._lightboxShadow.style.display = "grid";
+    this._open = true;
     document.body.style.overflow = "hidden";
   }
 
   _closeLightbox() {
-    this._lightboxShadow.style.display = "none";
+    this._open = false;
     document.body.style.overflow = "auto";
+  }
+
+  _handleEscape = (e) => {
+    if ((e.key === "Escape" || e.key === "Esc")) {
+      this._closeLightbox()
+    }
+  }
+
+  connectedCallback() {
+    super.connectedCallback()
+    document.addEventListener("keydown", this._handleEscape)
+  }
+
+  disconnectedCallback() {
+    document.removeEventListener("keydown", this._handleEscape);
+    super.disconnectedCallback();
   }
 
   render() {
@@ -90,8 +119,8 @@ export class LightBox extends LitElement {
         src=${this.src}
         width=${this.width}
         @click=${this._openLightbox} />
-      <div class="lightbox__shadow" @click=${this._closeLightbox}>
-        <img class="lightbox__created-image" src=${this.lightbox ? this.lightbox : this.src} />
+      <div class="lightbox__shadow ${this._openClass}" @click=${this._closeLightbox}>
+        <img class="lightbox__created-image" src=${this.lightbox ? this.lightbox : this.src} alt=${this.alt} />
       </div>
     `;
   }
