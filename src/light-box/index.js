@@ -20,6 +20,10 @@ export class LightBox extends LitElement {
         max-inline-size: 100%;
       }
 
+      img[height] {
+        block-size: auto;
+      }
+
       .lightbox__original-image {
         cursor: zoom-in;
       }
