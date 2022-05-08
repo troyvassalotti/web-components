@@ -1,3 +1,3 @@
-import { CalendarHeatmap } from "./calendar-heatmap/index.js";
-import { LightBox } from "./light-box/index.js";
-import { OverlayCaption } from "./overlay-caption/index.js";
+export { OverlayCaption } from "./overlay-caption/index.js";
+export { LightBox } from "./light-box/index.js";
+export { CalendarHeatmap } from "./calendar-heatmap/index.js";
