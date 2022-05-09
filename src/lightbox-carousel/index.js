@@ -5,8 +5,21 @@ export class LightboxCarousel extends LitElement {
     return css`
       :host {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
         gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+        grid-template-rows: masonry;
+        justify-items: center;
+      }
+
+      ::slotted(light-box:first-of-type) {
+        inline-size: 100%;
+        max-block-size: 30rem;
+      }
+
+      @media (min-width: 37.5rem) {
+        ::slotted(light-box:first-of-type) {
+          grid-column: 1 / 3;
+        }
       }
     `;
   }
@@ -14,17 +27,39 @@ export class LightboxCarousel extends LitElement {
   static get properties() {
     return {
       _open: { state: true },
+      _openLightbox: { state: true },
     };
   }
 
   constructor() {
     super();
     this._open = false;
+    this._openLightbox = null;
   }
 
   static get _getChildren() {
     return this.querySelectorAll("light-box");
   }
+
+  _handleKeyup = (e) => {
+    if (e.key === "ArrowRight") {
+      const nextIndex = this._openLightbox.index + 1;
+      for (const node of this._children.entries()) {
+        if (node[0] === nextIndex) {
+          this._openLightbox.node._closeLightbox();
+          node[1]._openLightbox();
+        }
+      }
+    } else if (e.key === "ArrowLeft") {
+      const previousIndex = this._openLightbox.index - 1;
+      for (const node of this._children.entries()) {
+        if (node[0] === previousIndex) {
+          this._openLightbox.node._closeLightbox();
+          node[1]._openLightbox();
+        }
+      }
+    }
+  };
 
   render() {
     return html`<slot></slot>`;
@@ -33,24 +68,20 @@ export class LightboxCarousel extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this._children = this.querySelectorAll("light-box");
-
     this.addEventListener("LightboxOpened", () => {
-      console.log("opened");
-      /**
-       * When opened, this component should...
-       * - Know what Lightbox is currently open
-       * - Know all the Lightboxes to the left and right of the open one
-       *  - Maybe it's just an array in order of elements on the DOM instead of figuring out the math
-       * - On arrow presses, close the current Lightbox and open the corresponding Lightbox
-       */
-      console.log(this._children);
-      this._openLightbox = this.querySelector("light-box[open]"); // Try accessing it from this._children instead
-      console.log("Lightbox is:", this._openLightbox);
+      this._children.forEach((node, index) => {
+        if (node.attributes.open) {
+          this._openLightbox = {
+            node,
+            index,
+          };
+        }
+      });
+      document.addEventListener("keyup", this._handleKeyup);
     });
     this.addEventListener("LightboxClosed", () => {
-      console.log("closed");
       this._openLightbox = null;
-      console.log("Lightbox is:", this._openLightbox);
+      document.removeEventListener("keyup", this._handleKeyup);
     });
   }
 }

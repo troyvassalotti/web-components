@@ -101,7 +101,7 @@ export class OverlayCaption extends LitElement {
             loading="lazy" />
         </slot>
         <figcaption part="co-caption" class="caption">
-          <span><slot>Your caption goes here</slot></span>
+          <slot name="caption"><span>Your content goes here</span></slot>
         </figcaption>
       </figure>
     </a>`;

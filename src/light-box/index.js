@@ -2,11 +2,17 @@
  * @file Creates a LightBox Web Component
  */
 
-import { LitElement, css, html } from "https://cdn.skypack.dev/lit@2.2.3";
+import { LitElement, html, css, unsafeCSS } from "https://cdn.skypack.dev/lit@2.2.3";
+import animateCSS from "animate.css/animate.min.css?inline";
 
 export class LightBox extends LitElement {
   static get styles() {
-    return css`
+    return [
+      css`
+      :host {
+        --animate-duration: .5s;
+      }
+      
       * {
         box-sizing: border-box;
       }
@@ -26,6 +32,9 @@ export class LightBox extends LitElement {
 
       .lightbox__original-image {
         cursor: zoom-in;
+        inline-size: inherit;
+        max-block-size: inherit;
+        object-fit: cover;
       }
 
       .lightbox__shadow {
@@ -47,7 +56,9 @@ export class LightBox extends LitElement {
       .closed {
         display: none;
       })
-    `;
+    `,
+      unsafeCSS(animateCSS),
+    ];
   }
 
   static get properties() {
@@ -135,7 +146,9 @@ export class LightBox extends LitElement {
         @click=${this._openLightbox} />
       <div class="lightbox__shadow ${this._openClass}" @click=${this._closeLightbox}>
         <img
-          class="lightbox__created-image"
+          class="lightbox__created-image animate__animated ${this._open
+            ? "animate__fadeIn"
+            : "animate__fadeOut"}"
           src=${this.lightbox ? this.lightbox : this.src}
           alt=${this.alt} />
       </div>
