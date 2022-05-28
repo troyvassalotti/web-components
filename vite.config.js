@@ -7,7 +7,7 @@ export default defineConfig({
       formats: ["es"],
     },
     rollupOptions: {
-      external: ["lit"],
+      external: ["lit", "d3"],
       input: {
         "overlay-caption": "src/components/overlay-caption/index",
         "light-box": "src/components/light-box/index",

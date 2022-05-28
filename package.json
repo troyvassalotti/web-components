@@ -28,6 +28,7 @@
   "homepage": "https://github.com/troyvassalotti/web-components#readme",
   "devDependencies": {
     "animate.css": "^4.1.1",
+    "d3": "^7.4.4",
     "prettier": "^2.6.2",
     "vite": "^2.9.5"
   },
