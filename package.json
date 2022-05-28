@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@troyv/web-components",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "description": "Web Components I've made",
   "main": "src/index.js",
   "files": [
