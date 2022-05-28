@@ -1,4 +1,8 @@
-import { LitElement, css, html } from "https://cdn.skypack.dev/lit@2.2.3";
+/**
+ * @file A container for LightBox components to enable a carousel
+ */
+
+import { LitElement, css, html } from "lit";
 
 export class LightboxCarousel extends LitElement {
   static get styles() {

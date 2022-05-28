@@ -2,6 +2,7 @@
  * @file Creates a Heatmap web component
  * Accepts data in the form of JSON as [{"date": "YYYY-MM-DD", "time": "00:00"}]
  */
+
 import * as d3 from "https://cdn.skypack.dev/d3@7.3.0";
 
 export class CalendarHeatmap extends HTMLElement {
@@ -11,14 +12,14 @@ export class CalendarHeatmap extends HTMLElement {
 
     this.template = `
         <style>
-        * {
-        box-sizing: border-box;
-      }
-
-      *::after,
-      *::before {
-        box-sizing: inherit;
-      }
+          * {
+            box-sizing: border-box;
+          }
+    
+          *::after,
+          *::before {
+            box-sizing: inherit;
+          }
       
           #heatmap {
             padding-block: 1em;

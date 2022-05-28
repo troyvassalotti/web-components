@@ -2,24 +2,24 @@
  * @file Creates a LightBox Web Component
  */
 
-import { LitElement, html, css, unsafeCSS } from "https://cdn.skypack.dev/lit@2.2.3";
+import { html, css, unsafeCSS, LitElement } from "lit";
 import animateCSS from "animate.css/animate.min.css?inline";
 
 export class LightBox extends LitElement {
   static get styles() {
     return [
       css`
+        * {
+          box-sizing: border-box;
+        }
+
+        *::after,
+        *::before {
+          box-sizing: inherit;
+        }
+        
       :host {
         --animate-duration: .5s;
-      }
-      
-      * {
-        box-sizing: border-box;
-      }
-
-      *::after,
-      *::before {
-        box-sizing: inherit;
       }
 
       img {

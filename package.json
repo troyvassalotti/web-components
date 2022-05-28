@@ -30,5 +30,8 @@
     "animate.css": "^4.1.1",
     "prettier": "^2.6.2",
     "vite": "^2.9.5"
+  },
+  "dependencies": {
+    "lit": "^2.2.5"
   }
 }

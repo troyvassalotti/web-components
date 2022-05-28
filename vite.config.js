@@ -7,12 +7,14 @@ export default defineConfig({
       formats: ["es"],
     },
     rollupOptions: {
+      external: ["lit"],
       input: {
-        "overlay-caption": "src/overlay-caption/index",
-        "light-box": "src/light-box/index",
-        "calendar-heatmap": "src/calendar-heatmap/index",
-        "cloudy-sky": "src/cloudy-sky/index",
-        "lightbox-carousel": "src/lightbox-carousel/index",
+        "overlay-caption": "src/components/overlay-caption/index",
+        "light-box": "src/components/light-box/index",
+        "calendar-heatmap": "src/components/calendar-heatmap/index",
+        "cloudy-sky": "src/components/cloudy-sky/index",
+        "lightbox-carousel": "src/components/lightbox-carousel/index",
+        "kb-typewriter": "src/components/kb-typewriter/index",
       },
       output: {
         entryFileNames: "[name].js",
