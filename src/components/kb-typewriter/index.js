@@ -89,6 +89,10 @@ export class KbTypewriter extends LitElement {
     this.prepend(animations);
   }
 
+  firstUpdated() {
+    this.style.color = "var(--kb-text-color, currentColor)";
+  }
+
   render() {
     this._createAnimationStyles();
     return html` <slot part="kb-text"></slot>`;
