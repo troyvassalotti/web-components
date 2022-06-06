@@ -3,6 +3,7 @@
  */
 
 import { LitElement, css, html } from "lit";
+import TinyGesture from "tinygesture";
 
 export class LightboxCarousel extends LitElement {
   static get styles() {
@@ -45,24 +46,33 @@ export class LightboxCarousel extends LitElement {
     return this.querySelectorAll("light-box");
   }
 
-  _handleKeyup = (e) => {
-    if (e.key === "ArrowRight") {
-      const nextIndex = this._openLightbox.index + 1;
-      for (const node of this._children.entries()) {
-        if (node[0] === nextIndex) {
-          this._openLightbox.node._closeLightbox();
-          node[1]._openLightbox();
-        }
-      }
-    } else if (e.key === "ArrowLeft") {
-      const previousIndex = this._openLightbox.index - 1;
-      for (const node of this._children.entries()) {
-        if (node[0] === previousIndex) {
-          this._openLightbox.node._closeLightbox();
-          node[1]._openLightbox();
-        }
+  _handleChangingLightboxes = (index) => {
+    for (const node of this._children.entries()) {
+      if (node[0] === index) {
+        this._openLightbox.node._closeLightbox();
+        node[1]._openLightbox();
       }
     }
+  };
+
+  _handleKeyup = (e) => {
+    const index =
+      e.key === "ArrowRight"
+        ? this._openLightbox.index + 1
+        : e.key === "ArrowLeft"
+        ? this._openLightbox.index - 1
+        : false;
+    this._handleChangingLightboxes(index);
+  };
+
+  _handleSwipeLeft = (e) => {
+    const index = this._openLightbox.index + 1;
+    this._handleChangingLightboxes(index);
+  };
+
+  _handleSwipeRight = (e) => {
+    const index = this._openLightbox.index - 1;
+    this._handleChangingLightboxes(index);
   };
 
   render() {
@@ -71,6 +81,8 @@ export class LightboxCarousel extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
+    const gesture = new TinyGesture(this);
+    const callback = (e) => {};
     this._children = this.querySelectorAll("light-box");
     this.addEventListener("LightboxOpened", () => {
       this._children.forEach((node, index) => {
@@ -82,11 +94,20 @@ export class LightboxCarousel extends LitElement {
         }
       });
       document.addEventListener("keyup", this._handleKeyup);
+      gesture.on("swiperight", this._handleSwipeRight);
+      gesture.on("swipeleft", this._handleSwipeLeft);
     });
     this.addEventListener("LightboxClosed", () => {
       this._openLightbox = null;
       document.removeEventListener("keyup", this._handleKeyup);
+      gesture.off("swiperight", callback);
+      gesture.off("swipeleft", callback);
     });
+  }
+
+  disconnectedCallback() {
+    gesture.destroy();
+    super.disconnectedCallback();
   }
 }
 
