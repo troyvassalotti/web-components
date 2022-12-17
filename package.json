@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@troyv/web-components",
-  "version": "3.2.2",
+  "version": "4.0.0",
   "description": "Web Components I've made",
   "main": "./dist/web-components.umd.js",
   "module": "./dist/web-components.js",
