@@ -3,7 +3,7 @@
   "name": "@troyv/web-components",
   "version": "4.0.0",
   "description": "Web Components I've made",
-  "main": "./dist/web-components.umd.js",
+  "main": "./dist/web-components.umd.cjs",
   "module": "./dist/web-components.js",
   "files": [
     "dist"
@@ -11,7 +11,7 @@
   "exports": {
     ".": {
       "import": "./dist/web-components.js",
-      "require": "./dist/web-components.umd.js"
+      "require": "./dist/web-components.umd.cjs"
     }
   },
   "scripts": {
